@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шаблон заявления в ASGH</title>
+    <style>
+        body {
+            background-color: lightslategrey;
+            font-family: Arial, sans-serif;
+
+        }
+
+        .conteiner{
+            margin-top: 3%;
+            margin-left: 3%;
+            margin-right: 60vw;
+            padding-top: 1%;
+            padding-left: 3%;
+            padding-right: 3%;
+            padding-bottom: 3%;
+            background-color: darkgrey;
+        }
+
+        .textrez{
+            height: 30vh;
+            width: 30vw;
+        }
+        
+        .formWidth{
+            width: 30vw;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="conteiner" class="conteiner">
+        <h3>Шаблон заявления в ASGH</h3>
+        <p>Заполните форму, сгеририруйте BB код для форума, вставьте его как ответ.</p>
+        <hr style="border: none; height: 5px;background-color: #4CAF50;">
+        <label for="fullname">Имя кандидата:</label><br>
+        <input type="text" id="fullname" name="fullname" class="formWidth" placeholder="Ali Menson"><br><br>
+
+        <label for="gender">Пол:</label><br>
+        <select id="gender" name="gender" class="formWidth">
+            <option value="Мужской">Мужчина</option>
+            <option value="Женский">Женщина</option>
+        </select><br><br>
+
+        <label for="birthDate">Дата рождения:</label><br>
+        <input type="date" id="birthDate" name="birthDate" class="formWidth"><br><br>
+
+        <label for="phoneNumber">Номер телефона:</label><br>
+        <input type="text" id="phoneNumber" name="phoneNumber" class="formWidth" placeholder="575-746"><br><br>
+
+        <label for="citizenship">Гражданство и место рождения:</label><br>
+        <input type="text" id="citizenship" name="citizenship" class="formWidth" placeholder="Гражданин США. Оригона, город Парленд. "><br><br>
+
+        <label for="education">Образование/учебное заведение:</label><br>
+        <input type="text" id="education" name="education" class="formWidth" placeholder="4 курс Бакалавтра по части медицыны в Колумбийский университет Нью-Йорка"><br><br>
+
+        <label for="mentalIllness">Диагностированные ли психические заболевания:</label><br>
+        <select id="mentalIllness" name="mentalIllness" class="formWidth">
+            <option value="Yes">Да</option>
+            <option value="No">Нет</option>
+        </select><br><br>
+
+        <label for="physicalIllness">Диагностированные ли физические отклонения:</label><br>
+        <select id="physicalIllness" name="physicalIllness" class="formWidth">
+            <option value="Yes">Да</option>
+            <option value="No">Нет</option>
+        </select><br><br>
+
+        <label for="languages">Языки, которыми вы владеете:</label><br>
+        <input type="text" id="languages" name="languages" class="formWidth" placeholder="Английский, Испанский"><br><br>
+
+        <label for="documentsCopy">Копия документов(Скриншот статистики) (URL):</label><br>
+        <input type="text" id="documentsCopy" name="documentsCopy" class="formWidth"placeholder="https://"><br><br>
+
+        <label for="aboutMe">О себе:</label><br>
+        <textarea id="aboutMe" class="formWidth"  placeholder="Дайте немного информации о вашем персонаже, будто реальное собеседование."></textarea>
+        
+        <label for="date">Сегодняшная дата:</label><br>
+        <input type="date" id="date" name="date" class="formWidth"><br><br>
+
+        <label for="signatureE">Подпись:</label><br>
+        <input type="text" id="signatureE" name="signatureE" class="formWidth" placeholder="Se_r"><br><br>
+
+
+        <!-- =================================================== -->
+
+        <br>
+
+            <button onclick="getBBCodeForForum()" class="button">Сгенирировать BB код</button>
+            <button onclick="copyText()" class="button">Скопировать</button>
+            
+
+        <br>
+        <textarea id="bbcodetosend" class="textrez"></textarea>
+    </div>
+</body>
+
+<script>
+    window.onload = function() {
+        // get user name
+        setTodayDateToDropdown();
+    }
+
+    let dateDrop = document.getElementById('date');
+    let textarea = document.getElementById('bbcodetosend');
+
+    function copyText() {
+        textarea.select(); // Select the text inside the textarea
+        document.execCommand("copy"); // Copy the selected text to clipboard
+        alert("Text copied to clipboard");
+    }
+
+    function setTodayDateToDropdown(){
+        let today = new Date();
+        var fourYearsAgo = new Date(today.getFullYear() - 20, today.getMonth(), today.getDate()+1);
+        var formattedDate = fourYearsAgo.toISOString().split('T')[0];
+        dateDrop.value = formattedDate;
+    }
+
+    function getBBCodeForForum(){
+        let fullnameValue = document.getElementById('fullname').value;
+        let genderValue = document.getElementById('gender').value;
+        let birthDateValue = document.getElementById('birthDate').value;
+        let phoneNumberValue = document.getElementById('phoneNumber').value;
+        let citizenshipValue = document.getElementById('citizenship').value;
+        let educationValue = document.getElementById('education').value;
+        let mentalIllnessValue = document.getElementById('mentalIllness').value;
+        let physicalIllnessValue = document.getElementById('physicalIllness').value;
+        let languagesValue = document.getElementById('languages').value;
+        let documentsCopyValue = document.getElementById('documentsCopy').value;
+        let aboutMeValue = document.getElementById('aboutMe').value;
+        let dateValue = document.getElementById('date').value;
+        let signatureEValue = document.getElementById('signatureE').value;
+
+
+
+        let text = getGenerateText(fullnameValue, genderValue, birthDateValue, phoneNumberValue, citizenshipValue, educationValue, mentalIllnessValue, physicalIllnessValue, languagesValue, documentsCopyValue, aboutMeValue, dateValue, signatureEValue);
+
+        textarea.value = text;
+        
+    }
+
+    function getGenerateText(fullnameValue, genderValue, birthDateValue, phoneNumberValue, citizenshipValue, educationValue, mentalIllnessValue, physicalIllnessValue, languagesValue, documentsCopyValue, aboutMeValue, dateValue, signatureEValue){
+
+
+        let outOfTheBoxForm = `[RIGHT]От [B]${fullnameValue}[/B]
+К кадровому отделу Госпиталя Всех Святых
+[/RIGHT]
+[CENTER][SIZE=5][B]Заявление о прохождение обучения/интернатуры/практики[/B][/SIZE][/CENTER]
+
+Я, [B][COLOR=rgb(44, 130, 201)][B][SIZE=4]${fullnameValue}[/SIZE][/B][/COLOR][/B] обращаюсь к [B]кадровому отделу Госпиталя Всех Святых[/B] с просьбой рассмотреть мою кандидатуру на возможность прохождения обучения/практики в вашем учреждении. К своему заявлению прикрепляю дополнительную информацию.
+
+[TABLE]
+[TR]
+[TD][B][COLOR=rgb(226, 80, 65)]БАЗОВАЯ ИНФОРМАЦИЯ[/COLOR][/B][/TD]
+[TD][/TD]
+[/TR]
+[TR]
+[TD][B]Имя и Фамилия[/B][/TD]
+[TD]${fullnameValue}[/TD]
+[/TR]
+[TR]
+[TD][B]Пол[/B][/TD]
+[TD]${genderValue}[/TD]
+[/TR]
+[TR]
+[TD][B]Дата рождения[/B][/TD]
+[TD] ${birthDateValue}[/TD]
+[/TR]
+[TR]
+[TD][B]Контактная информация (телефон)[/B][/TD]
+[TD]${phoneNumberValue}[/TD]
+[/TR]
+[TR]
+[TD][B]Гражданство и место рождения[/B][/TD]
+[TD]${citizenshipValue}[/TD]
+[/TR]
+[TR]
+[TD][B]Образование/учебное заведение[/B][/TD]
+[TD]${educationValue}[/TD]
+[/TR]
+[TR]
+[TD][B]Диагностированны ли психические заболевания[/B][/TD]
+[TD]${mentalIllnessValue}[/TD]
+[/TR]
+[TR]
+[TD][B]Диагностированны ли физические отклонения[/B][/TD]
+[TD]${physicalIllnessValue}[/TD]
+[/TR]
+[TR]
+[TD][B]Языки, которыми вы владеете[/B][/TD]
+[TD]${languagesValue}[/TD]
+[/TR]
+[TR]
+[TD][B]Копия документов
+ (укажите ссылку на скрин F7 статистики)[/B][/TD]
+[TD][URL='${documentsCopyValue}']Klicl[/URL][/TD]
+[/TR]
+[/TABLE]
+
+[B][COLOR=rgb(226, 80, 65)]НЕМНОГО ИНФОРМАЦИИ О ВАС[/COLOR][/B]:
+[QUOTE] ${aboutMeValue} [/QUOTE]
+
+[RIGHT][B][COLOR=rgb(235, 107, 86)]Дата[/COLOR][/B]: ${dateValue}
+[FONT=courier new]${signatureEValue}[/FONT][/RIGHT]`
+    
+        return outOfTheBoxForm;
+    }
+
+</script>
+</html>
+
+
+
